@@ -57,10 +57,6 @@ function CVarManager.ApplyAllLoginCVars()
         end
     end
 
-    if appliedCount > 0 and PeaversCommons and PeaversCommons.Utils then
-        PeaversCommons.Utils.Print(addon, "Applied " .. appliedCount .. " CVar(s) on login")
-    end
-
     return appliedCount
 end
 

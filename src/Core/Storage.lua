@@ -105,7 +105,6 @@ function Storage.Initialize()
     local key = GetCharacterKey()
     local cvars = Storage.GetAllCVars()
     Log("INFO", "Initialized with", #cvars, "CVar(s) for", key or "unknown")
-    print("|cff3abdf7PeaversCVars:|r Loaded " .. #cvars .. " saved CVar(s) for " .. (key or "unknown"))
 end
 
 function Storage.GetAllCVars()

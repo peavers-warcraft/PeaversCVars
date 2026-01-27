@@ -183,6 +183,7 @@ local database = {
     { command = "SoftTargetInteract", description = "Soft targeting interact range (0-3)", category = "Controls", valueType = "number", default = "1" },
     { command = "SoftTargetEnemy", description = "Soft targeting enemy mode (0-3)", category = "Controls", valueType = "number", default = "1" },
     { command = "SoftTargetFriend", description = "Soft targeting friendly mode (0-3)", category = "Controls", valueType = "number", default = "1" },
+    { command = "turnSpeed", description = "Keyboard turning speed (0-500)", category = "Controls", valueType = "number", default = "180" },
 
     -- ═══════════════════════════════════════════════════════════════
     -- NETWORK & ADVANCED
@@ -195,6 +196,214 @@ local database = {
     { command = "synchronizeConfig", description = "Sync config across characters (0-1)", category = "Advanced", valueType = "boolean", default = "0" },
     { command = "synchronizeBindings", description = "Sync keybindings across characters (0-1)", category = "Advanced", valueType = "boolean", default = "0" },
     { command = "synchronizeMacros", description = "Sync macros across characters (0-1)", category = "Advanced", valueType = "boolean", default = "0" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- UNIT NAMES (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "UnitNameOwn", description = "Show your own name above your character (0-1)", category = "Names", valueType = "boolean", default = "1" },
+    { command = "UnitNameNPC", description = "Show NPC names (0-1)", category = "Names", valueType = "boolean", default = "1" },
+    { command = "UnitNameHostleNPC", description = "Show hostile NPC names (0-1)", category = "Names", valueType = "boolean", default = "1" },
+    { command = "UnitNameInteractiveNPC", description = "Show interactive NPC names (0-1)", category = "Names", valueType = "boolean", default = "1" },
+    { command = "UnitNameFriendlyPlayerName", description = "Show friendly player names (0-1)", category = "Names", valueType = "boolean", default = "1" },
+    { command = "UnitNameFriendlyPetName", description = "Show friendly pet names (0-1)", category = "Names", valueType = "boolean", default = "0" },
+    { command = "UnitNameFriendlyGuardianName", description = "Show friendly guardian names (0-1)", category = "Names", valueType = "boolean", default = "0" },
+    { command = "UnitNameFriendlyTotemName", description = "Show friendly totem names (0-1)", category = "Names", valueType = "boolean", default = "0" },
+    { command = "UnitNameEnemyPlayerName", description = "Show enemy player names (0-1)", category = "Names", valueType = "boolean", default = "1" },
+    { command = "UnitNameEnemyPetName", description = "Show enemy pet names (0-1)", category = "Names", valueType = "boolean", default = "0" },
+    { command = "UnitNameEnemyGuardianName", description = "Show enemy guardian names (0-1)", category = "Names", valueType = "boolean", default = "0" },
+    { command = "UnitNameEnemyTotemName", description = "Show enemy totem names (0-1)", category = "Names", valueType = "boolean", default = "0" },
+    { command = "UnitNamePlayerGuild", description = "Show player guild names (0-1)", category = "Names", valueType = "boolean", default = "1" },
+    { command = "UnitNameGuildTitle", description = "Show guild titles (0-1)", category = "Names", valueType = "boolean", default = "0" },
+    { command = "UnitNamePlayerPVPTitle", description = "Show PVP titles (0-1)", category = "Names", valueType = "boolean", default = "1" },
+    { command = "UnitNameNonCombatCreatureName", description = "Show non-combat creature names like critters (0-1)", category = "Names", valueType = "boolean", default = "0" },
+    { command = "UnitNameForceHideMinus", description = "Hide minor unit names (0-1)", category = "Names", valueType = "boolean", default = "0" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- ADDITIONAL NAMEPLATES (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "nameplateShowSelf", description = "Show personal resource bar (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "nameplateShowEnemyPets", description = "Show enemy pet nameplates (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "nameplateShowEnemyGuardians", description = "Show enemy guardian nameplates (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "nameplateShowEnemyTotems", description = "Show enemy totem nameplates (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "nameplateShowEnemyMinus", description = "Show minor enemy nameplates (0-1)", category = "Nameplates", valueType = "boolean", default = "1" },
+    { command = "nameplateShowFriendlyGuardians", description = "Show friendly guardian nameplates (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "nameplateShowFriendlyTotems", description = "Show friendly totem nameplates (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "nameplateOtherAtBase", description = "Position nameplates at unit base (0=over, 2=under)", category = "Nameplates", valueType = "number", default = "0" },
+    { command = "nameplateMotionSpeed", description = "Nameplate animation speed (0-1)", category = "Nameplates", valueType = "number", default = "0.025" },
+    { command = "nameplateMinScaleDistance", description = "Distance where nameplates reach minimum scale (0-40)", category = "Nameplates", valueType = "number", default = "10" },
+    { command = "nameplateMaxScaleDistance", description = "Distance where nameplates reach maximum scale (0-40)", category = "Nameplates", valueType = "number", default = "10" },
+    { command = "nameplateMinAlphaDistance", description = "Distance where nameplates reach minimum alpha (0-40)", category = "Nameplates", valueType = "number", default = "10" },
+    { command = "nameplateMaxAlphaDistance", description = "Distance where nameplates reach maximum alpha (0-40)", category = "Nameplates", valueType = "number", default = "10" },
+    { command = "nameplateSelectedAlpha", description = "Selected target nameplate alpha (0-1)", category = "Nameplates", valueType = "number", default = "1" },
+    { command = "nameplateTargetBehindMaxDistance", description = "Max distance to show target nameplate when behind camera (0-60)", category = "Nameplates", valueType = "number", default = "15" },
+    { command = "nameplateOccludedAlphaMult", description = "Alpha multiplier for occluded nameplates (0-1)", category = "Nameplates", valueType = "number", default = "0.4" },
+    { command = "nameplatePersonalShowAlways", description = "Always show personal nameplate (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "nameplatePersonalShowInCombat", description = "Show personal nameplate in combat (0-1)", category = "Nameplates", valueType = "boolean", default = "1" },
+    { command = "nameplatePersonalShowWithTarget", description = "Show personal nameplate when targeting enemy (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "ShowClassColorInNameplate", description = "Show class colors on nameplates (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "ShowClassColorInFriendlyNameplate", description = "Show class colors on friendly nameplates (0-1)", category = "Nameplates", valueType = "boolean", default = "0" },
+    { command = "ShowNamePlateLoseAggroFlash", description = "Flash nameplate when losing aggro as tank (0-1)", category = "Nameplates", valueType = "boolean", default = "1" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- FLOATING COMBAT TEXT (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "enableFloatingCombatText", description = "Enable floating combat text (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "floatingCombatTextAuras", description = "Show aura gains/losses (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextComboPoints", description = "Show combo point gains (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextDodgeParryMiss", description = "Show dodge/parry/miss (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "floatingCombatTextDamageReduction", description = "Show damage resistances (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextEnergyGains", description = "Show energy/rage/focus gains (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextFriendlyHealers", description = "Show healer names on incoming heals (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextHonorGains", description = "Show honor gains (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextLowManaHealth", description = "Show low health/mana warnings (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "floatingCombatTextRepChanges", description = "Show reputation changes (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextReactives", description = "Show reactive ability procs (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "floatingCombatTextCombatState", description = "Show entering/leaving combat (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextFloatMode", description = "Combat text float direction (1=up, 2=down, 3=arc)", category = "Combat", valueType = "number", default = "1" },
+    { command = "floatingCombatTextPetMeleeDamage", description = "Show pet melee damage (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextPetSpellDamage", description = "Show pet spell damage (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextSpellMechanics", description = "Show crowd control effects on target (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "floatingCombatTextSpellMechanicsOther", description = "Show crowd control effects on others (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- LOSS OF CONTROL (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "lossOfControl", description = "Enable loss of control alerts (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "lossOfControlFull", description = "Loss of control: full CC alert mode (0=off, 1=alert, 2=duration)", category = "Combat", valueType = "number", default = "2" },
+    { command = "lossOfControlSilence", description = "Loss of control: silence alert mode (0=off, 1=alert, 2=duration)", category = "Combat", valueType = "number", default = "2" },
+    { command = "lossOfControlInterrupt", description = "Loss of control: interrupt alert mode (0=off, 1=alert, 2=duration)", category = "Combat", valueType = "number", default = "1" },
+    { command = "lossOfControlDisarm", description = "Loss of control: disarm alert mode (0=off, 1=alert, 2=duration)", category = "Combat", valueType = "number", default = "1" },
+    { command = "lossOfControlRoot", description = "Loss of control: root alert mode (0=off, 1=alert, 2=duration)", category = "Combat", valueType = "number", default = "1" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- ADDITIONAL SOUND (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "Sound_EnableReverb", description = "Enable sound reverb effects (0-1)", category = "Sound", valueType = "boolean", default = "1" },
+    { command = "Sound_EnableDSPEffects", description = "Enable DSP sound effects (0-1)", category = "Sound", valueType = "boolean", default = "1" },
+    { command = "Sound_EnableSoundWhenGameIsInBG", description = "Play sound when game is in background (0-1)", category = "Sound", valueType = "boolean", default = "0" },
+    { command = "Sound_ListenerAtCharacter", description = "Sound originates from character not camera (0-1)", category = "Sound", valueType = "boolean", default = "0" },
+    { command = "Sound_EnablePetBattleMusic", description = "Play music during pet battles (0-1)", category = "Sound", valueType = "boolean", default = "0" },
+    { command = "Sound_ZoneMusicNoDelay", description = "Loop zone music without delay (0-1)", category = "Sound", valueType = "boolean", default = "0" },
+    { command = "Sound_EnablePositionalLowPassFilter", description = "Enable positional audio low-pass filter (0-1)", category = "Sound", valueType = "boolean", default = "1" },
+    { command = "FootstepSounds", description = "Play footstep sounds (0-1)", category = "Sound", valueType = "boolean", default = "1" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- ADDITIONAL CAMERA (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "cameraPivot", description = "Smart camera pivot when turning (0-1)", category = "Camera", valueType = "boolean", default = "1" },
+    { command = "cameraYawSmoothSpeed", description = "Camera auto-follow rotation speed (0-360)", category = "Camera", valueType = "number", default = "180" },
+    { command = "cameraOverShoulder", description = "Camera over-shoulder offset (-1 to 1)", category = "Camera", valueType = "number", default = "0" },
+    { command = "cameraHeadMovementStrength", description = "ActionCam head movement intensity (0-2)", category = "Camera", valueType = "number", default = "0" },
+    { command = "cameraDynamicPitch", description = "ActionCam dynamic pitch enabled (0-1)", category = "Camera", valueType = "boolean", default = "0" },
+    { command = "cameraLockedTargetFocusing", description = "ActionCam locked target focus (0-1)", category = "Camera", valueType = "boolean", default = "0" },
+    { command = "cameraDistanceMoveSpeed", description = "Camera zoom speed (0-50)", category = "Camera", valueType = "number", default = "8.33" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- TARGETING (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "TargetNearestUseNew", description = "Use modern nearest-target functionality (0-1)", category = "Target", valueType = "boolean", default = "1" },
+    { command = "TargetPriorityCombatLock", description = "Lock to combat targets (0=off, 1=in-combat, 2=player-combat)", category = "Target", valueType = "number", default = "0" },
+    { command = "TargetPriorityPvp", description = "PVP target priority (0=off, 2=all pvp, 3=players only)", category = "Target", valueType = "number", default = "0" },
+    { command = "stopAutoAttackOnTargetChange", description = "Stop auto-attack when changing targets (0-1)", category = "Target", valueType = "boolean", default = "0" },
+    { command = "assistAttack", description = "Auto-attack when assisting (0-1)", category = "Target", valueType = "boolean", default = "0" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- HIGHLIGHTING & VISIBILITY (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "findYourselfAnywhere", description = "Always highlight your character (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "findYourselfAnywhereOnlyInCombat", description = "Highlight your character only in combat (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "findYourselfInBG", description = "Highlight your character in battlegrounds (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "findYourselfInRaid", description = "Highlight your character in raids (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "findYourselfMode", description = "Highlight mode (0=circle, 1=circle+outline)", category = "UI", valueType = "number", default = "0" },
+    { command = "emphasizeMySpellEffects", description = "Emphasize your own spell effects (0-1)", category = "Graphics", valueType = "boolean", default = "1" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- ADDITIONAL UI (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "autoSelfCast", description = "Auto self-cast when no target (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "ActionButtonUseKeyDown", description = "Cast spells on key down not key up (0-1)", category = "ActionBars", valueType = "boolean", default = "0" },
+    { command = "secureAbilityToggle", description = "Prevent toggling off abilities (0-1)", category = "ActionBars", valueType = "boolean", default = "0" },
+    { command = "displaySpellActivationOverlays", description = "Show spell activation overlays (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "spellActivationOverlayOpacity", description = "Spell activation overlay opacity (0-1)", category = "Combat", valueType = "number", default = "1" },
+    { command = "showSpenderFeedback", description = "Show resource spending animation (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "showBuilderFeedback", description = "Show resource building animation (0-1)", category = "Combat", valueType = "boolean", default = "1" },
+    { command = "predictedHealth", description = "Show predicted health changes (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "comboPointLocation", description = "Combo point display location (1=target, 2=self)", category = "Combat", valueType = "number", default = "1" },
+    { command = "displayFreeBagSlots", description = "Show free bag slots count (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "reverseCleanupBags", description = "Reverse direction when cleaning bags (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "lootLeftmostBag", description = "Loot to leftmost bag first (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "alwaysCompareItems", description = "Always show item comparison tooltips (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "UberTooltips", description = "Show enhanced tooltips with extra info (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "showQuestTrackingTooltips", description = "Show quest info in tooltips (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "noBuffDebuffFilterOnTarget", description = "Show all buffs/debuffs on target (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "buffDurations", description = "Show buff duration timers (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "showDispelDebuffs", description = "Show dispellable debuffs (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "showCastableBuffs", description = "Show castable buffs (0-1)", category = "UI", valueType = "boolean", default = "0" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- FRAMES & PARTY (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "useCompactPartyFrames", description = "Use raid-style party frames (0-1)", category = "Raid", valueType = "boolean", default = "0" },
+    { command = "showPartyBackground", description = "Show party frame background (0-1)", category = "Raid", valueType = "boolean", default = "0" },
+    { command = "showPartyPets", description = "Show party pet frames (0-1)", category = "Raid", valueType = "boolean", default = "1" },
+    { command = "fullSizeFocusFrame", description = "Use full-size focus frame (0-1)", category = "Target", valueType = "boolean", default = "0" },
+    { command = "showArenaEnemyFrames", description = "Show arena enemy frames (0-1)", category = "Raid", valueType = "boolean", default = "1" },
+    { command = "showArenaEnemyPets", description = "Show arena enemy pet frames (0-1)", category = "Raid", valueType = "boolean", default = "0" },
+    { command = "showArenaEnemyCastbar", description = "Show arena enemy castbars (0-1)", category = "Raid", valueType = "boolean", default = "1" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- STATUS TEXT (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "statusText", description = "Show numeric values on health/mana bars (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "statusTextDisplay", description = "Status text display mode (string)", category = "UI", valueType = "string", default = "NONE" },
+    { command = "xpBarText", description = "Show XP bar text (0-1)", category = "UI", valueType = "boolean", default = "0" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- SOCIAL & CHAT (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "spamFilter", description = "Enable chat spam filter (0-1)", category = "Chat", valueType = "boolean", default = "1" },
+    { command = "blockTrades", description = "Block trade requests (0-1)", category = "Chat", valueType = "boolean", default = "0" },
+    { command = "blockChannelInvites", description = "Block chat channel invites (0-1)", category = "Chat", valueType = "boolean", default = "0" },
+    { command = "guildMemberNotify", description = "Notify when guild members come online (0-1)", category = "Chat", valueType = "boolean", default = "1" },
+    { command = "wholeChatWindowClickable", description = "Make entire chat window clickable (0-1)", category = "Chat", valueType = "boolean", default = "0" },
+    { command = "colorChatNamesByClass", description = "Color chat names by class (0-1)", category = "Chat", valueType = "boolean", default = "1" },
+    { command = "showToastOnline", description = "Show toast when friends come online (0-1)", category = "Chat", valueType = "boolean", default = "1" },
+    { command = "showToastOffline", description = "Show toast when friends go offline (0-1)", category = "Chat", valueType = "boolean", default = "0" },
+    { command = "showToastBroadcast", description = "Show toast for friend broadcasts (0-1)", category = "Chat", valueType = "boolean", default = "1" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- MAP & MINIMAP (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "mapFade", description = "Fade map when moving (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "rotateMinimap", description = "Rotate minimap with player (0-1)", category = "UI", valueType = "boolean", default = "0" },
+    { command = "screenEdgeFlash", description = "Flash screen edge for notifications (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "autoQuestWatch", description = "Auto-track accepted quests (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "autoQuestProgress", description = "Auto-track quest progress (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "showTamers", description = "Show pet tamers on world map (0-1)", category = "UI", valueType = "boolean", default = "1" },
+    { command = "ShowQuestUnitCircles", description = "Show quest objective ground circles (0-1)", category = "UI", valueType = "boolean", default = "1" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- THREAT & WARNINGS (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "threatShowNumeric", description = "Show numeric threat values (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+    { command = "threatWarning", description = "Threat warning mode (0=off, 1=dungeon, 2=party, 3=always)", category = "Combat", valueType = "number", default = "1" },
+    { command = "threatPlaySounds", description = "Play sounds for aggro warnings (0-1)", category = "Combat", valueType = "boolean", default = "0" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- GRAPHICS ADVANCED (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "ffxGlow", description = "Enable full-screen glow effect (0-1)", category = "Graphics", valueType = "boolean", default = "1" },
+    { command = "ffxDeath", description = "Enable full-screen death effect (0-1)", category = "Graphics", valueType = "boolean", default = "1" },
+    { command = "violenceLevel", description = "Violence level (0-5)", category = "Graphics", valueType = "number", default = "5" },
+    { command = "RenderScale", description = "Render resolution scale (0.5-2)", category = "Graphics", valueType = "number", default = "1" },
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- ADVANCED & DEBUG (from AdvancedInterfaceOptions)
+    -- ═══════════════════════════════════════════════════════════════
+    { command = "advancedCombatLogging", description = "Enable advanced combat logging (0-1)", category = "Advanced", valueType = "boolean", default = "0" },
+    { command = "scriptWarnings", description = "Show Lua script warnings (0-1)", category = "Advanced", valueType = "boolean", default = "0" },
+    { command = "showTutorials", description = "Show in-game tutorials (0-1)", category = "Accessibility", valueType = "boolean", default = "1" },
+    { command = "autoStand", description = "Auto-stand when needed (0-1)", category = "Combat", valueType = "boolean", default = "1" },
 }
 
 -- Get all CVars

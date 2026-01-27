@@ -1,0 +1,26 @@
+## Interface: 120000, 120001
+
+## Title: |cff3abdf7Peavers|rCVars
+## Notes: Manage and apply console variables with login persistence.
+## Author: Peavers
+## Version: 1.0.0
+
+## IconTexture: Interface\AddOns\PeaversCommons\src\Media\Icon.tga
+## Category-enUS: Peavers
+
+## X-Website: https://peavers.io
+## X-Source-Code: https://github.com/peavers-warcraft/PeaversCVars
+## X-Curse-Project-ID: 1445775
+
+## Dependencies: PeaversCommons
+## SavedVariables: PeaversCVarsDB
+
+src\Core\Config.lua
+src\Core\Storage.lua
+src\Core\CVarManager.lua
+src\Core\CVarDatabase.lua
+
+src\UI\Autocomplete.lua
+src\UI\DialogUI.lua
+
+src\Main.lua

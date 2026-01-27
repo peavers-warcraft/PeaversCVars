@@ -1,0 +1,17 @@
+name: Update Version and Tag
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  release:
+    uses: peavers-warcraft/workflow-templates/.github/workflows/release-on-push.yml@main
+    with:
+      toc_file: PeaversCVars.toc
+      addon_name: PeaversCVars
+    secrets: inherit

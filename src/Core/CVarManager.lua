@@ -67,7 +67,16 @@ function CVarManager.GetDefaultValue(command)
         return wowDefault
     end
 
-    -- Fall back to our database
+    -- Try CVarDiscovery (has API-discovered defaults)
+    local CVarDiscovery = addon.CVarDiscovery
+    if CVarDiscovery and CVarDiscovery.IsInitialized() then
+        local discoveryDefault = CVarDiscovery.GetDefaultValue(command)
+        if discoveryDefault then
+            return discoveryDefault
+        end
+    end
+
+    -- Fall back to curated database
     local CVarDatabase = addon.CVarDatabase
     if CVarDatabase and CVarDatabase.GetInfo then
         local info = CVarDatabase.GetInfo(command)

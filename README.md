@@ -7,9 +7,9 @@ A World of Warcraft addon that lets you save, manage, and automatically apply co
 ## Features
 
 - Save console variables with a clean, modern interface
-- Autocomplete suggestions from 130+ curated CVars with descriptions
+- Dynamic discovery of all available CVars using the WoW API
+- Autocomplete suggestions with curated descriptions for 400+ common CVars
 - Apply CVars automatically on login per-character
-- Instantly apply saved CVars without reloading
 - Search CVars by name or description
 - Per-character storage for different setups
 
@@ -20,6 +20,8 @@ A World of Warcraft addon that lets you save, manage, and automatically apply co
 3. Enable the addon on the character selection screen
 
 ## Usage
+
+The addon provides a searchable interface for managing CVars that persist across game sessions.
 
 1. Open the CVar manager with `/pcv`
 2. Start typing a console command to see suggestions
@@ -40,22 +42,6 @@ Access the CVar manager through `/pcv`:
 - **Apply on Login**: Toggle automatic application per CVar
 - **Apply Now**: Instantly apply a saved CVar
 - **Remove**: Delete a saved CVar
-
-## CVar Categories
-
-The autocomplete database includes CVars for:
-
-- Graphics & Performance
-- Camera settings
-- Sound & Music
-- Nameplates
-- Combat & UI
-- Action Bars
-- Chat
-- Raid Frames
-- Accessibility
-- Controls
-- Advanced/Network
 
 ## Dependencies
 

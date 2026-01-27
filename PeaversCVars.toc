@@ -19,6 +19,7 @@ src\Core\Config.lua
 src\Core\Storage.lua
 src\Core\CVarManager.lua
 src\Core\CVarDatabase.lua
+src\Core\CVarDiscovery.lua
 
 src\UI\Autocomplete.lua
 src\UI\DialogUI.lua

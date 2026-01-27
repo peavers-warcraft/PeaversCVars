@@ -5,6 +5,7 @@ addon.Autocomplete = Autocomplete
 
 local Config = addon.Config
 local CVarDatabase = addon.CVarDatabase
+local CVarDiscovery = addon.CVarDiscovery
 
 local dropdown = nil
 local items = {}
@@ -152,7 +153,12 @@ function Autocomplete.Show(editBox, results)
         if i <= numResults then
             local cvar = results[i]
             item.commandText:SetText(cvar.command)
-            item.categoryBadge:SetText(cvar.category or "")
+            -- Show category with optional "(discovered)" indicator for non-curated entries
+            local categoryText = cvar.category or ""
+            if cvar.source == "discovered" then
+                categoryText = categoryText .. " (discovered)"
+            end
+            item.categoryBadge:SetText(categoryText)
             item.descText:SetText(cvar.description)
             item.cvarData = cvar
             item:Show()
@@ -259,8 +265,13 @@ function Autocomplete.OnTextChanged(editBox)
         return
     end
 
-    -- Search the database
-    local results = CVarDatabase.Search(text)
+    -- Search using CVarDiscovery if initialized, otherwise fall back to CVarDatabase
+    local results
+    if CVarDiscovery and CVarDiscovery.IsInitialized() then
+        results = CVarDiscovery.Search(text)
+    else
+        results = CVarDatabase.Search(text)
+    end
 
     if #results > 0 then
         Autocomplete.Show(editBox, results)

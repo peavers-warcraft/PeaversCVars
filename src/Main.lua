@@ -20,6 +20,7 @@ addon.version = C_AddOns.GetAddOnMetadata(addonName, "Version") or "1.0.0"
 local Config = addon.Config
 local Storage = addon.Storage
 local CVarManager = addon.CVarManager
+local CVarDiscovery = addon.CVarDiscovery
 local DialogUI = addon.DialogUI
 local Debug = PeaversCommons.Debug
 local SOURCE = "CVars:Main"
@@ -59,6 +60,13 @@ PeaversCommons.Events:Init(addonName, function()
     SlashCmdList["PEAVERSCVARS"] = function()
         addon.ToggleDialog()
     end
+
+    -- Initialize CVar discovery early (before UI might need it)
+    PeaversCommons.Events:RegisterEvent("VARIABLES_LOADED", function()
+        if CVarDiscovery then
+            CVarDiscovery.Initialize()
+        end
+    end)
 
     PeaversCommons.Events:RegisterEvent("PLAYER_ENTERING_WORLD", function()
         if not loginCVarsApplied then

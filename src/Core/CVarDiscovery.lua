@@ -15,17 +15,21 @@ local mergedLookup = {}
 -- ═══════════════════════════════════════════════════════════════
 
 -- Map Enum.ConsoleCategory to human-readable category strings
-local categoryMap = {
-    [Enum.ConsoleCategory.Debug] = "Advanced",
-    [Enum.ConsoleCategory.Graphics] = "Graphics",
-    [Enum.ConsoleCategory.Console] = "Advanced",
-    [Enum.ConsoleCategory.Combat] = "Combat",
-    [Enum.ConsoleCategory.Game] = "UI",
-    [Enum.ConsoleCategory.Default] = "Miscellaneous",
-    [Enum.ConsoleCategory.Net] = "Network",
-    [Enum.ConsoleCategory.Sound] = "Sound",
-    [Enum.ConsoleCategory.Gm] = "Advanced",
-}
+-- Guard against Enum.ConsoleCategory not existing (older WoW versions)
+local categoryMap = {}
+if Enum and Enum.ConsoleCategory then
+    categoryMap = {
+        [Enum.ConsoleCategory.Debug] = "Advanced",
+        [Enum.ConsoleCategory.Graphics] = "Graphics",
+        [Enum.ConsoleCategory.Console] = "Advanced",
+        [Enum.ConsoleCategory.Combat] = "Combat",
+        [Enum.ConsoleCategory.Game] = "UI",
+        [Enum.ConsoleCategory.Default] = "Miscellaneous",
+        [Enum.ConsoleCategory.Net] = "Network",
+        [Enum.ConsoleCategory.Sound] = "Sound",
+        [Enum.ConsoleCategory.Gm] = "Advanced",
+    }
+end
 
 local function MapConsoleCategory(enumCategory)
     if not enumCategory then
@@ -63,15 +67,23 @@ end
 local function DiscoverAll()
     local discovered = {}
 
+    -- C_Console API may not exist in all WoW versions (Classic, older builds)
+    if not C_Console or not C_Console.GetAllCommands then
+        return discovered
+    end
+
     -- C_Console.GetAllCommands() returns all console commands
     local allCommands = C_Console.GetAllCommands()
     if not allCommands then
         return discovered
     end
 
+    -- Get the CVar command type enum value (guard against it not existing)
+    local cvarCommandType = Enum and Enum.ConsoleCommandType and Enum.ConsoleCommandType.Cvar
+
     for _, cmd in ipairs(allCommands) do
         -- Filter to CVars only (not slash commands or other types)
-        if cmd.commandType == Enum.ConsoleCommandType.Cvar then
+        if cvarCommandType and cmd.commandType == cvarCommandType then
             -- Get additional info from C_CVar
             local cvarInfo = C_CVar.GetCVarInfo(cmd.command)
             local defaultValue = cvarInfo and cvarInfo.defaultValue or nil

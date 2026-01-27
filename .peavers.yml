@@ -1,5 +1,8 @@
 # .peavers.yml - Addon metadata for peavers.io website
 
+# Custom display name
+name: Peavers CVars
+
 # Icon to display on website
 iconType: GearRuneIcon
 

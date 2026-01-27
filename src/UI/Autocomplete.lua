@@ -222,8 +222,13 @@ function Autocomplete.HandleKeyDown(key)
         return Autocomplete.MoveSelection(1)
     elseif key == "UP" then
         return Autocomplete.MoveSelection(-1)
-    elseif key == "TAB" or key == "ENTER" then
+    elseif key == "TAB" then
+        -- Tab selects current item (Enter is handled separately in OnEnterPressed)
         if selectedIndex > 0 then
+            Autocomplete.SelectCurrent()
+            return true
+        elseif #currentResults > 0 then
+            selectedIndex = 1
             Autocomplete.SelectCurrent()
             return true
         end
@@ -288,7 +293,11 @@ function Autocomplete.AttachTo(editBox)
     end)
 
     editBox:SetScript("OnEnterPressed", function(self)
-        if Autocomplete.IsShown() and selectedIndex > 0 then
+        if Autocomplete.IsShown() and #currentResults > 0 then
+            -- If nothing selected, select the first result
+            if selectedIndex == 0 then
+                selectedIndex = 1
+            end
             Autocomplete.SelectCurrent()
         elseif origOnEnterPressed then
             origOnEnterPressed(self)

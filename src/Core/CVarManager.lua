@@ -60,4 +60,44 @@ function CVarManager.ApplyAllLoginCVars()
     return appliedCount
 end
 
+function CVarManager.GetDefaultValue(command)
+    -- First try WoW's built-in default
+    local wowDefault = GetCVarDefault(command)
+    if wowDefault then
+        return wowDefault
+    end
+
+    -- Fall back to our database
+    local CVarDatabase = addon.CVarDatabase
+    if CVarDatabase and CVarDatabase.GetInfo then
+        local info = CVarDatabase.GetInfo(command)
+        if info and info.default then
+            return info.default
+        end
+    end
+
+    return nil
+end
+
+function CVarManager.ResetToDefault(command)
+    if not command then
+        return false, "Missing command"
+    end
+
+    local defaultValue = CVarManager.GetDefaultValue(command)
+    if not defaultValue then
+        return false, "No default value found for " .. command
+    end
+
+    local success, err = pcall(function()
+        SetCVar(command, defaultValue)
+    end)
+
+    if success then
+        return true, command .. " reset to default (" .. defaultValue .. ")"
+    else
+        return false, "Failed to reset " .. command .. ": " .. tostring(err)
+    end
+end
+
 return CVarManager

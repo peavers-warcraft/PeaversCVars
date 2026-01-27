@@ -164,15 +164,32 @@ local function CreateListItem(parent, cvarData, yOffset)
     local removeBtn = CreateStyledButton(item, cfg.BUTTON_WIDTH_SMALL, cfg.BUTTON_HEIGHT, "Remove", false)
     removeBtn:SetPoint("BOTTOMRIGHT", -cfg.INNER_PADDING, 8)
     removeBtn:SetScript("OnClick", function()
+        -- Revert to default before removing
+        CVarManager.ResetToDefault(cvarCommand)
         Storage.RemoveCVarByCommand(cvarCommand)
-        ShowFeedback(cvarCommand .. " removed", false)
+        ShowFeedback(cvarCommand .. " removed and reset to default", false)
         DialogUI.RefreshCVarList()
     end)
 
-    local applyBtn = CreateStyledButton(item, cfg.BUTTON_WIDTH_MEDIUM, cfg.BUTTON_HEIGHT, "Apply Now", true)
+    local applyBtn = CreateStyledButton(item, cfg.BUTTON_WIDTH_MEDIUM, cfg.BUTTON_HEIGHT, "Apply", true)
     applyBtn:SetPoint("RIGHT", removeBtn, "LEFT", -6, 0)
     applyBtn:SetScript("OnClick", function()
         local success, message = CVarManager.ApplyCVar(cvarData.command, cvarData.value)
+        ShowFeedback(message, not success)
+    end)
+
+    local defaultBtn = CreateStyledButton(item, cfg.BUTTON_WIDTH_SMALL, cfg.BUTTON_HEIGHT, "Default", false)
+    defaultBtn:SetPoint("RIGHT", applyBtn, "LEFT", -6, 0)
+    defaultBtn:SetScript("OnClick", function()
+        local success, message = CVarManager.ResetToDefault(cvarCommand)
+        if success then
+            -- Update the stored value to the default
+            local defaultValue = CVarManager.GetDefaultValue(cvarCommand)
+            if defaultValue then
+                Storage.SaveCVar(cvarCommand, defaultValue, "/console " .. cvarCommand .. " " .. defaultValue, cvarData.applyOnLogin)
+            end
+            DialogUI.RefreshCVarList()
+        end
         ShowFeedback(message, not success)
     end)
 
@@ -226,7 +243,7 @@ function DialogUI.RefreshCVarList()
 
         local emptyLabel = emptyItem:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
         emptyLabel:SetPoint("TOP", emptyIcon, "BOTTOM", 0, -8)
-        emptyLabel:SetText("Type a console command above to get started.\nStart typing to see suggestions.")
+        emptyLabel:SetText("Start typing above to search for CVars.\nSelect a suggestion or enter: cvarName value\nExample: maxFPS 144")
         emptyLabel:SetTextColor(Config.GetColor("TEXT_MUTED"))
         emptyLabel:SetJustifyH("CENTER")
 
@@ -333,7 +350,7 @@ function DialogUI.CreateDialog()
     local inputSection = CreateFrame("Frame", nil, dialog, "BackdropTemplate")
     inputSection:SetPoint("TOPLEFT", cfg.PADDING, yPos)
     inputSection:SetPoint("TOPRIGHT", -cfg.PADDING, yPos)
-    inputSection:SetHeight(70)
+    inputSection:SetHeight(90)
     inputSection:SetBackdrop({
         bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
         edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
@@ -368,6 +385,21 @@ function DialogUI.CreateDialog()
     inputBox:SetMaxLetters(255)
     inputBox:SetTextColor(Config.GetColor("TEXT_PRIMARY"))
 
+    -- Placeholder text
+    local placeholder = inputContainer:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+    placeholder:SetPoint("LEFT", 8, 0)
+    placeholder:SetText("Type to search or enter: cvarName value")
+    placeholder:SetTextColor(0.4, 0.4, 0.4, 1)
+
+    inputBox:SetScript("OnTextChanged", function(self)
+        local text = self:GetText()
+        if text and text ~= "" then
+            placeholder:Hide()
+        else
+            placeholder:Show()
+        end
+    end)
+
     inputBox:SetScript("OnEnterPressed", function(self)
         if not (Autocomplete and Autocomplete.IsShown and Autocomplete.IsShown()) then
             OnAddCVar(self)
@@ -378,6 +410,14 @@ function DialogUI.CreateDialog()
         self:ClearFocus()
     end)
 
+    -- Help text
+    local helpText = inputSection:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    helpText:SetPoint("TOPLEFT", inputContainer, "BOTTOMLEFT", 0, -6)
+    helpText:SetPoint("RIGHT", inputSection, "RIGHT", -cfg.INNER_PADDING, 0)
+    helpText:SetText("Start typing to search CVars. Format: maxFPS 120 or /console maxFPS 120")
+    helpText:SetTextColor(Config.GetColor("TEXT_MUTED"))
+    helpText:SetJustifyH("LEFT")
+
     -- Attach autocomplete
     if Autocomplete and Autocomplete.AttachTo then
         Autocomplete.AttachTo(inputBox)
@@ -385,12 +425,12 @@ function DialogUI.CreateDialog()
 
     -- Add button
     local addButton = CreateStyledButton(inputSection, 70, cfg.INPUT_HEIGHT, "Add", true)
-    addButton:SetPoint("RIGHT", -cfg.INNER_PADDING, -8)
+    addButton:SetPoint("LEFT", inputContainer, "RIGHT", 6, 0)
     addButton:SetScript("OnClick", function()
         OnAddCVar(inputBox)
     end)
 
-    yPos = yPos - 70 - cfg.PADDING
+    yPos = yPos - 90 - cfg.PADDING
 
     -- Section: Saved CVars header
     local listHeader = dialog:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")

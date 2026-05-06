@@ -24,4 +24,6 @@ src\Core\CVarDiscovery.lua
 src\UI\Autocomplete.lua
 src\UI\DialogUI.lua
 
+src\Utils\ConfigUI.lua
+
 src\Main.lua

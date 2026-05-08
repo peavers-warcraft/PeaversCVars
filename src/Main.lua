@@ -80,16 +80,7 @@ PeaversCommons.Events:Init(addonName, function()
 
     C_Timer.After(0.5, function()
         if PeaversCommons.SettingsUI then
-            PeaversCommons.SettingsUI:CreateSettingsPages(
-                addon,
-                "PeaversCVars",
-                "Peavers CVars",
-                "Manage console variables with login persistence.",
-                {
-                    "/pcv - Open CVar manager",
-                    "/peaverscvars - Open CVar manager"
-                }
-            )
+            PeaversCommons.SettingsUI:CreateRedirectPage(addon, "PeaversCVars", "Peavers CVars")
         end
     end)
     -- Register with PeaversConfig registry

@@ -1,5 +1,9 @@
 package-as: PeaversCVars
 
+required-dependencies:
+  - peaverscommons
+  - peaversconfig
+
 ignore:
   - .git
   - .github

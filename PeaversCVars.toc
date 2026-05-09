@@ -1,4 +1,4 @@
-## Interface: 120000, 120001
+## Interface: 120001, 120005, 120007
 
 ## Title: |cff3abdf7Peavers|rCVars
 ## Notes: Manage and apply console variables with login persistence.
@@ -12,7 +12,7 @@
 ## X-Source-Code: https://github.com/peavers-warcraft/PeaversCVars
 ## X-Curse-Project-ID: 1445775
 
-## Dependencies: PeaversCommons
+## Dependencies: PeaversCommons, PeaversConfig
 ## SavedVariables: PeaversCVarsDB
 
 Changelog.lua
@@ -25,5 +25,7 @@ src\Core\CVarDiscovery.lua
 
 src\UI\Autocomplete.lua
 src\UI\DialogUI.lua
+
+src\Utils\ConfigUI.lua
 
 src\Main.lua

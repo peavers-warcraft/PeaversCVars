@@ -12,7 +12,6 @@ local Config = addon.Config
 local Storage = addon.Storage
 local CVarManager = addon.CVarManager
 local Autocomplete = addon.Autocomplete
-local FrameUtils = PeaversCommons.FrameUtils
 local Debug = PeaversCommons.Debug
 local SOURCE = "CVars:DialogUI"
 

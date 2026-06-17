@@ -3,8 +3,6 @@ local addonName, addon = ...
 local CVarManager = {}
 addon.CVarManager = CVarManager
 
-local PeaversCommons = _G.PeaversCommons
-
 function CVarManager.ParseCommand(input)
     if not input or input == "" then
         return nil, nil, "Please enter a command"

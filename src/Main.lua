@@ -17,7 +17,6 @@ end
 addon.name = addonName
 addon.version = C_AddOns.GetAddOnMetadata(addonName, "Version") or "1.0.0"
 
-local Config = addon.Config
 local Storage = addon.Storage
 local CVarManager = addon.CVarManager
 local CVarDiscovery = addon.CVarDiscovery

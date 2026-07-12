@@ -1,6 +1,6 @@
 # Peavers CVars
 
-[![AddonSentry](https://api.addonsentry.io/api/public/repos/peavers-warcraft/PeaversCVars/badge.svg)](https://addonsentry.io/dashboard/peavers-warcraft/PeaversCVars)
+[![AddonSentry](https://addonsentry.io/api/public/repos/peavers-warcraft/PeaversCVars/badge.svg)](https://addonsentry.io/dashboard/peavers-warcraft/PeaversCVars)
 
 A World of Warcraft addon that lets you manage and persistently apply console variables (CVars) across logins.
 

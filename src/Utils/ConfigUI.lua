@@ -42,8 +42,33 @@ function ConfigUI:BuildGeneralPage(parentFrame)
     parentFrame:SetHeight(math.abs(y) + 30)
 end
 
+function ConfigUI:BuildInfoPage(parentFrame)
+    PeaversCommons.ConfigUIUtils.BuildInfoPage(parentFrame, "CVars", {
+        "Saves console variables (CVars) and reapplies them automatically when " ..
+            "you log in, so tweaks survive patches, reloads, and setting resets.",
+        { command = "/pcv", desc = "open the CVar manager" },
+
+        { header = "What CVars are" },
+        "CVars are the game's internal settings - hundreds of options that " ..
+            "never appear in the graphics or interface menus, from camera " ..
+            "distance to nameplate behavior. Normally they are set with " ..
+            "/console and silently lost when the game resets them.",
+
+        { header = "Finding the right one" },
+        "Start typing in the manager and it suggests matching CVars from the " ..
+            "game's own list, with curated descriptions for over 400 common " ..
+            "ones. You can search by name or by what the setting does.",
+
+        { header = "Per-character storage" },
+        "Saved CVars are stored per character, so an alt can keep a different " ..
+            "setup - useful for different camera or nameplate preferences " ..
+            "between a tank and a healer.",
+    })
+end
+
 function ConfigUI:GetPages()
     return {
+        { key = "info", label = "Information", builder = function(f) ConfigUI:BuildInfoPage(f) end },
         { key = "general", label = "General", builder = function(f) ConfigUI:BuildGeneralPage(f) end },
     }
 end

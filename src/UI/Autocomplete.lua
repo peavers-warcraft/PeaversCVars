@@ -79,7 +79,7 @@ local function CreateDropdown()
 
     local cfg = Config.AUTOCOMPLETE
 
-    dropdown = CreateFrame("Frame", "PeaversCVarsAutocomplete", UIParent, "BackdropTemplate") --[[@as PeaversCVarsAutocompleteFrame]]
+    dropdown = CreateFrame("Frame", nil, UIParent, "BackdropTemplate") --[[@as PeaversCVarsAutocompleteFrame]]
     dropdown:SetWidth(cfg.DROPDOWN_WIDTH)
     dropdown:SetFrameStrata("TOOLTIP")
     dropdown:SetFrameLevel(200)

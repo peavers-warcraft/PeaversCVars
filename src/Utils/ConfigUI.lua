@@ -32,8 +32,7 @@ function ConfigUI:BuildGeneralPage(parentFrame)
     -- Anchors itself and reports the next y; the 40 was a hand-kept copy of the
     -- button's height plus air. Everything above it advances by measured text
     -- height and was never coupled to the widget metrics.
-    local openBtn
-    openBtn, y = W:CreateButton(parentFrame, "Open CVar Manager", {
+    _, y = W:CreateButton(parentFrame, "Open CVar Manager", {
         variant = "primary",
         width = 160,
         x = indent, y = y,
